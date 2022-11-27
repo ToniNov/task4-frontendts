@@ -8,11 +8,12 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { useAppDispatch } from "../../../common/hooks/hooks";
-import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../common/hooks/hooks";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { createUser } from "../bll/authSlices";
 import { Path } from "../../../common/enum/path";
+import { selectorUserAuthName } from "../bll/authSelectors";
 
 type InputsType = {
   name: string;
@@ -23,6 +24,7 @@ type InputsType = {
 export const Signup = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const isAuth = useAppSelector(selectorUserAuthName);
 
   const {
     register,
@@ -40,6 +42,10 @@ export const Signup = () => {
   const onSubmit = async (values: InputsType) => {
     dispatch(createUser(values));
   };
+
+  if (isAuth) {
+    return <Navigate to={Path.Users} />;
+  }
 
   const toLogin = () => {
     return navigate(`${Path.Login}`);

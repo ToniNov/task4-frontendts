@@ -35,7 +35,7 @@ export const DataTable = () => {
   }, []);
 
   if (!isAuth) {
-    navigate(`${Path.Root}`);
+    navigate(`${Path.Login}`);
   }
 
   const rowSelection = (usersIds: GridRowId[]) => {

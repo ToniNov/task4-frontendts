@@ -3,5 +3,6 @@ export enum Path {
   Users = "/users",
   Signup = "/signup",
   Login = "/login",
-  Auth = "/auth"
+  Auth = "/auth",
+  Other = "/*"
 }
