@@ -13,9 +13,10 @@ import Container from "@mui/material/Container";
 
 import { useForm } from "react-hook-form";
 import { loginIn } from "../bll/authSlices";
-import { useAppDispatch } from "../../../common/hooks/hooks";
-import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../common/hooks/hooks";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Path } from "../../../common/enum/path";
+import { selectorUserAuthName } from "../bll/authSelectors";
 
 type InputsType = {
   email: string;
@@ -25,6 +26,7 @@ type InputsType = {
 export const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const isAuth = useAppSelector(selectorUserAuthName);
 
   const {
     register,
@@ -45,6 +47,10 @@ export const Login = () => {
   const toSignup = () => {
     return navigate(`${Path.Signup}`);
   };
+
+  if (isAuth) {
+    return <Navigate to={Path.Users} />;
+  }
 
   return (
     <Container component="main" maxWidth="xs">
